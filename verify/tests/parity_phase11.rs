@@ -39,6 +39,8 @@
 //!     Plan 11-05's collapse turns this green.
 
 use libxc_rs::LibxcRsError;
+use libxc_rs::eval::workspace::EvaluationWorkspace;
+use libxc_rs::functional::Functional;
 use libxc_rs::eval::{dispatch_gga, dispatch_lda, dispatch_mgga};
 use libxc_rs::input::{GgaInput, LdaInput, MggaInput};
 use libxc_rs::model::{
@@ -160,10 +162,10 @@ const PHASE11_SMOKE: &[PhaseEntry] = &[
 /// + regen-under-D-02-tuple-return closes them.
 const PHASE11_WORST_CASE: &[PhaseEntry] = &[
     PhaseEntry { canonical: "mgga_c_revtpss",       family: Family::Mgga, id: 241 },
-    PhaseEntry { canonical: "mgga_c_kcisk",         family: Family::Mgga, id: 562 },
-    PhaseEntry { canonical: "mgga_c_b94",           family: Family::Mgga, id: 568 },
-    PhaseEntry { canonical: "mgga_x_r4scan",        family: Family::Mgga, id: 497 },
-    PhaseEntry { canonical: "mgga_x_br89_explicit", family: Family::Mgga, id: 285 },
+    PhaseEntry { canonical: "mgga_c_kcisk",         family: Family::Mgga, id: 638 },
+    PhaseEntry { canonical: "mgga_c_b94",           family: Family::Mgga, id: 397 },
+    PhaseEntry { canonical: "mgga_x_r4scan",        family: Family::Mgga, id: 650 },
+    PhaseEntry { canonical: "mgga_x_br89_explicit", family: Family::Mgga, id: 586 },
     PhaseEntry { canonical: "mgga_xc_b97m_v",       family: Family::Mgga, id: 254 },
 ];
 
@@ -367,7 +369,7 @@ fn run_mgga_exc_unpol(entry: &PhaseEntry) -> TupleResult {
     };
     let functional = match MggaFunctional::from_id(id_obj) {
         Ok(f) => f,
-        Err(_) => return TupleResult::SkipNotRouted,
+        Err(_) => return run_mgga_exc_unpol_complete(entry, id_obj),
     };
     let rho = RHO_UNPOL;
     let sigma = SIGMA_UNPOL;
@@ -411,6 +413,49 @@ fn run_mgga_exc_unpol(entry: &PhaseEntry) -> TupleResult {
     if !functional.has_exc() {
         return TupleResult::SkipUnsupportedOrder;
     }
+    check_slice(entry.canonical, "zk", &zk, &oracle.zk)
+}
+
+/// The typed `MggaFunctional` enum covers only part of the registry. A
+/// functional outside it is still routed -- through `Functional::new`, the
+/// entry point `pyscf_rs` calls -- so it is compared that way. Reading "not in
+/// the enum" as "not routed" made `phase11_worst_case` skip all six of its
+/// entries and pass without comparing anything (until 2026-09-11).
+fn run_mgga_exc_unpol_complete(entry: &PhaseEntry, id: FunctionalId) -> TupleResult {
+    let f = match Functional::new(id, Spin::Unpolarized) {
+        Ok(f) => f,
+        Err(e) => return classify_dispatch_err(e),
+    };
+    let (rho, sigma, lapl, tau) = (RHO_UNPOL, SIGMA_UNPOL, LAPL_UNPOL, TAU_UNPOL);
+    let np = rho.len();
+    let oracle = match oracle_mgga_all(entry.id, 1, rho, sigma, lapl, tau) {
+        Ok(o) => o,
+        Err(e) => {
+            return TupleResult::Fail {
+                max_rel_err: f64::INFINITY,
+                detail: format!("oracle_mgga_all({}={}): {e}", entry.canonical, entry.id),
+            };
+        }
+    };
+    let input = match MggaInput::new(rho, sigma, lapl, tau, np, Spin::Unpolarized) {
+        Ok(i) => i,
+        Err(e) => {
+            return TupleResult::Fail {
+                max_rel_err: f64::INFINITY,
+                detail: format!("MggaInput::new: {e}"),
+            };
+        }
+    };
+    let mut zk = vec![0.0f64; np];
+    let mut output = MggaOutput {
+        zk: Some(&mut zk),
+        ..Default::default()
+    };
+    let mut ws = EvaluationWorkspace::new(np, Spin::Unpolarized);
+    if let Err(e) = f.evaluate_mgga(&input, DerivativeOrder::Exc, &mut output, &mut ws) {
+        return classify_dispatch_err(e);
+    }
+    drop(output);
     check_slice(entry.canonical, "zk", &zk, &oracle.zk)
 }
 
@@ -498,16 +543,21 @@ fn phase11_smoke() {
 }
 
 #[test]
-#[ignore = "Phase 11 wave 5 (collapse + regen) turns this green; today the \
-            worst-case files either fail to compile under workspace path-staleness \
-            or exceed strict 1e-12. See 11-DISPATCH-AUDIT.md and plan 11-05."]
 fn phase11_worst_case() {
-    let (_total, _pass, _skip, failures) = report("worst_case", PHASE11_WORST_CASE);
+    let (total, pass, skip, failures) = report("worst_case", PHASE11_WORST_CASE);
     assert!(
         failures.is_empty(),
         "phase11_worst_case: {} tuple(s) failed at strict 1e-12:\n  {}",
         failures.len(),
         failures.join("\n  ")
+    );
+    // Every worst-case entry is routed and claims exc. A skip here means the
+    // gate passed without comparing anything -- which is what it did, all six
+    // entries `SkipNotRouted`, until 2026-09-11.
+    assert_eq!(
+        (pass, skip),
+        (total, 0),
+        "phase11_worst_case: {skip} of {total} entries skipped instead of compared"
     );
 }
 

@@ -69,7 +69,7 @@ macro_rules! partial_dispatch {
                         c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut crate::sweep_gga::GgaChunk<'_, '_>| {
                 k::fxc_unpol::gga_x_lb_fxc_unpol(
@@ -81,7 +81,7 @@ macro_rules! partial_dispatch {
                         c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Kxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut crate::sweep_gga::GgaChunk<'_, '_>| {
                 k::kxc_unpol::gga_x_lb_kxc_unpol(
@@ -97,7 +97,7 @@ macro_rules! partial_dispatch {
                         c.v3sigma3.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Lxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut crate::sweep_gga::GgaChunk<'_, '_>| {
                 k::lxc_unpol::gga_x_lb_lxc_unpol(
@@ -118,7 +118,7 @@ macro_rules! partial_dispatch {
                         c.v4sigma4.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut crate::sweep_gga::GgaChunk<'_, '_>| {
                 k::vxc_pol::gga_x_lb_vxc_pol(
@@ -127,7 +127,7 @@ macro_rules! partial_dispatch {
                         c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut crate::sweep_gga::GgaChunk<'_, '_>| {
                 k::fxc_pol::gga_x_lb_fxc_pol(
@@ -139,7 +139,7 @@ macro_rules! partial_dispatch {
                         c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Kxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut crate::sweep_gga::GgaChunk<'_, '_>| {
                 k::kxc_pol::gga_x_lb_kxc_pol(
@@ -155,7 +155,7 @@ macro_rules! partial_dispatch {
                         c.v3sigma3.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Lxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut crate::sweep_gga::GgaChunk<'_, '_>| {
                 k::lxc_pol::gga_x_lb_lxc_pol(
@@ -176,7 +176,7 @@ macro_rules! partial_dispatch {
                         c.v4sigma4.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             _ => unreachable!("CLAIMED is exactly the set of arms above"),
         }

@@ -147,7 +147,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($vxc_u)::+(
@@ -156,7 +156,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         c.vrho.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($fxc_u)::+(
@@ -166,7 +166,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Kxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($kxc_u)::+(
@@ -177,7 +177,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         c.v3rho3.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Lxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($lxc_u)::+(
@@ -189,7 +189,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         c.v4rho4.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($exc_p)::+(
@@ -197,7 +197,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($vxc_p)::+(
@@ -206,7 +206,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         c.vrho.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($fxc_p)::+(
@@ -216,7 +216,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Kxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($kxc_p)::+(
@@ -227,7 +227,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         c.v3rho3.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Lxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($lxc_p)::+(
@@ -239,7 +239,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         c.v4rho4.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
         }
         Ok(())

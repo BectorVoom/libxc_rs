@@ -423,10 +423,10 @@ exports the same C symbol names as libxc itself, so a binary links one or the
 other:
 
 ```bash
-# The 22 oracle files. They must be named: `cargo test` builds *every* target
+# The 23 oracle files. They must be named: `cargo test` builds *every* target
 # before it runs any, and `compat_smoke` does not link without `c-abi` (mold:
 # undefined symbol: xc_func_init, xc_lda_exc, ...), so leaving it in the
-# invocation silently reports nothing at all rather than 22 results.
+# invocation silently reports nothing at all rather than 23 results.
 cargo test --release --manifest-path verify/Cargo.toml \
     --test kernel_oracle --test kernel_oracle_fxc --test composite_oracle \
     --test composite_diagnose --test gen_aux_overrides --test hse06_oracle \
@@ -436,7 +436,8 @@ cargo test --release --manifest-path verify/Cargo.toml \
     --test metadata_oracle --test mixed_oracle --test parity_phase09 \
     --test parity_phase11 --test invariants_mgga \
     --test oracle_c_libxc_parity \
-    --test refusal_sweep --test deorbital_oracle --test gen_deorbitalized
+    --test refusal_sweep --test deorbital_oracle --test gen_deorbitalized \
+    --test tau_output_gate
 
 cargo test --release --manifest-path verify/Cargo.toml --features c-abi \
     --test compat_smoke                                                         # on its own
@@ -470,6 +471,7 @@ Everything else finishes in the first few minutes.
 | `wpbeh_domain.rs` | where `gga_x_wpbeh` diverges as a function of reduced gradient |
 | `invariants_mgga.rs` | MGGA `zk`/`vxc` invariants against libxc; **moved here from the root crate's `tests/` on 2026-09-10** so `cargo test` on the library stops building the C oracle |
 | `oracle_c_libxc_parity.rs` | broad C-parity sweep; moved here for the same reason |
+| `tau_output_gate.rs` | every MGGA without `XC_FLAGS_NEEDS_TAU`, every claimed order, both spins, **bit for bit** -- the one class whose tau-derivative outputs libxc gates on the flag and the generated kernels would otherwise write (`mgga_x_2d_prhg07_prp10`, which `kernel_oracle.rs` skips as 2D) |
 | `refusal_sweep.rs` | every public id, both spins, every order its flags claim, through `BatchEvaluator`: a refusal not on its allowlist fails, and so does an allowlisted refusal that starts working -- the list can only shrink. Return codes, not values |
 | `deorbital_oracle.rs` | the deorbitalized SCAN-L family (700-704, 718, 719) against libxc at every order, both spins, and at non-default ext_params |
 | `gen_deorbitalized.rs` | `meta::DEORBITALIZED` is still what libxc's `xc_func_type` says (`LIBXC_RS_WRITE_DEORBITALIZED=1` regenerates it) |

@@ -168,7 +168,7 @@ macro_rules! ten_arm_dispatch_rgga {
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_gga::GgaChunk<'_, '_>| {
                 $($vxc_u)::+(
@@ -178,7 +178,7 @@ macro_rules! ten_arm_dispatch_rgga {
                         c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_gga::GgaChunk<'_, '_>| {
                 $($fxc_u)::+(
@@ -191,7 +191,7 @@ macro_rules! ten_arm_dispatch_rgga {
                         c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Kxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_gga::GgaChunk<'_, '_>| {
                 $($kxc_u)::+(
@@ -208,7 +208,7 @@ macro_rules! ten_arm_dispatch_rgga {
                         c.v3sigma3.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Lxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_gga::GgaChunk<'_, '_>| {
                 $($lxc_u)::+(
@@ -230,7 +230,7 @@ macro_rules! ten_arm_dispatch_rgga {
                         c.v4sigma4.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_gga::GgaChunk<'_, '_>| {
                 $($exc_p)::+(
@@ -238,7 +238,7 @@ macro_rules! ten_arm_dispatch_rgga {
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_gga::GgaChunk<'_, '_>| {
                 $($vxc_p)::+(
@@ -248,7 +248,7 @@ macro_rules! ten_arm_dispatch_rgga {
                         c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_gga::GgaChunk<'_, '_>| {
                 $($fxc_p)::+(
@@ -261,7 +261,7 @@ macro_rules! ten_arm_dispatch_rgga {
                         c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Kxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_gga::GgaChunk<'_, '_>| {
                 $($kxc_p)::+(
@@ -278,7 +278,7 @@ macro_rules! ten_arm_dispatch_rgga {
                         c.v3sigma3.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Lxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_gga::GgaChunk<'_, '_>| {
                 $($lxc_p)::+(
@@ -300,7 +300,7 @@ macro_rules! ten_arm_dispatch_rgga {
                         c.v4sigma4.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
         }
         Ok(())

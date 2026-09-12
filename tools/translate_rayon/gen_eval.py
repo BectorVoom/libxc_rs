@@ -507,6 +507,44 @@ where
              .replace("@RT_FIELDS@", nl.join(rt_fields)))
 
 
+def _tau_output_gate(fields: list[str]) -> str:
+    """The tau-derivative outputs of a functional without `XC_FLAGS_NEEDS_TAU`,
+    zeroed after its kernel runs.
+
+    libxc's maple2c code writes every output whose name contains `tau` only
+    under `p->info->flags & XC_FLAGS_NEEDS_TAU` (and every `lapl` one only
+    under `XC_FLAGS_NEEDS_LAPLACIAN`) -- 101,769 guarded writes across the
+    meta-GGA maple2c files, without exception. `from_maple.py` drops output
+    guards, so a kernel whose body reads `tau` writes those fields regardless.
+    `ZERO_TAU` is exactly "the flag is clear and the kernel reads tau", so the
+    dispatch zeroes them under it: `prepare` hands every chunk zeroed buffers,
+    and libxc leaves the gated fields at that zero. Only
+    `mgga_x_2d_prhg07_prp10` has `ZERO_TAU` today; everywhere else the branch
+    is a constant `false`.
+    """
+    taus = [f for f in fields if "tau" in f]
+    if not taus:
+        return ""
+    body = " ".join(f"if let Some(b) = c.{f}.as_deref_mut() {{ b.fill(0.0); }}" for f in taus)
+    return f"                if $zero_tau {{ {body} }}\n"
+
+
+def needs_lapl_map() -> dict[str, bool]:
+    """`info->flags & XC_FLAGS_NEEDS_LAPLACIAN`, per functional, keyed by
+    lowercase name. Same source as `needs_tau_map`."""
+    src = (REPO / "crates/libxc-core/src/meta/generated.rs").read_text()
+    NEEDS_LAPLACIAN = 1 << 15
+    out: dict[str, bool] = {}
+    for name, body in re.findall(
+            r"pub\(crate\) const (\w+): FunctionalMeta = FunctionalMeta \{(.*?)\n\};",
+            src, re.S):
+        m = re.search(r"flags: FunctionalFlags::from_bits_retain\((\d+)u32\)", body)
+        if not m:
+            continue
+        out[name[3:].lower()] = bool(int(m.group(1)) & NEEDS_LAPLACIAN)
+    return out
+
+
 def needs_tau_map() -> dict[str, bool]:
     """`info->flags & XC_FLAGS_NEEDS_TAU`, per functional, keyed by lowercase name.
 
@@ -568,6 +606,7 @@ def partial_dispatch_src(fam: str, base: str, orders: list[str], have_exc: bool)
                 f'                        c.{f}.as_deref_mut().expect("prepare guarantees this buffer"),'
                 for f in per_order[o] if have_exc or f != "zk")
             mod = f"{o.lower()}_{sfx}"
+            gate = _tau_output_gate([f for f in per_order[o] if have_exc or f != "zk"])
             arms.append(
                 f"            (DerivativeOrder::{o}, Spin::{spin}) => par_sweep(chunk, &d, min_chunk(), &sc, "
                 f"&|c: &mut crate::sweep_{fam}::{Fam}Chunk<'_, '_>| {{\n"
@@ -576,7 +615,8 @@ def partial_dispatch_src(fam: str, base: str, orders: list[str], have_exc: bool)
                 f"{fields}\n"
                 f"                        $( $scalar, )*\n"
                 f"                        dt, zt,\n"
-                f"                    )\n"
+                f"                    );\n"
+                f"{gate}"
                 f"            }}),")
     claimed_lit = ", ".join(f"DerivativeOrder::{o}" for o in orders)
     return f'''
@@ -643,15 +683,22 @@ def kernel_reads_tau(base: str) -> bool:
     So this is asked per kernel rather than assumed either way, and the answer
     becomes `Screen::zero_tau`.
     """
+    return kernel_reads(base, "tau")
+
+
+def kernel_reads(base: str, var: str) -> bool:
+    """Does the emitted MGGA kernel for `base` use its `var` argument? See
+    `kernel_reads_tau` above for why this is asked rather than assumed."""
     srcdir = KERNELS / "mgga" / base / "src"
     if not srcdir.is_dir():
         return True
     for rs in sorted(srcdir.rglob("*.rs")):
         text = rs.read_text()
-        for name, _rhs in re.findall(r"let (\w+)\s*=\s*([^;]*\btau\b[^;]*);", text):
+        for name, _rhs in re.findall(r"let (\w+)\s*=\s*([^;]*\b" + var + r"\b[^;]*);", text):
             if len(re.findall(r"\b" + re.escape(name) + r"\b", text)) - 1 > 0:
                 return True
     return False
+
 
 def gen_sweep(fam: str, inputs: list[str], outputs: list[str]) -> str:
     Fam = fam.capitalize()
@@ -1082,8 +1129,8 @@ def gen_family(fam: str, inputs: list[str], outputs: list[str]) -> str:
 {fields}
                         $( $scalar, )*
                         dt, zt,
-                    )
-            }}),'''
+                    );
+{_tau_output_gate(per_order[o])}            }}),'''
             )
     arms_src = "\n".join(arms)
 
@@ -1886,6 +1933,7 @@ def main() -> int:
                        if "internal_id" in info})
 
     tau_flags = needs_tau_map()
+    lapl_flags = needs_lapl_map()
     claimed_map = claimed_orders_map()
     for func, info in sorted(resolved.items()):
         fam = info["family"]
@@ -1897,6 +1945,14 @@ def main() -> int:
         # clamps rather than silently losing them.
         needs_tau = tau_flags.get(func, True)
         zero_tau = fam == "mgga" and not needs_tau and kernel_reads_tau(base)
+        # The lapl twin of ZERO_TAU does not exist yet because no functional
+        # needs it (2026-09-11): libxc passes `lapl` through unclamped, so only
+        # the NEEDS_LAPLACIAN output guard would matter. Refuse rather than
+        # emit a dispatch that writes fields libxc leaves at zero.
+        if fam == "mgga" and not lapl_flags.get(func, True) and kernel_reads(base, "lapl"):
+            raise SystemExit(
+                f"{func}: no XC_FLAGS_NEEDS_LAPLACIAN, but kernel {base} reads lapl -- "
+                "its lapl-derivative outputs need the same gate as _tau_output_gate")
         text = gen_func(fam, func, base, info["params"], info["values"], modules,
                         info.get("ext_names"), info.get("ext_to_kernel"),
                         needs_tau=needs_tau, zero_tau=zero_tau,

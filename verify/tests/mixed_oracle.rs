@@ -162,31 +162,26 @@ fn b3lyp_gga_vxc_matches_libxc() {
 }
 
 #[test]
-#[ignore = "deferred until aux metadata generation"]
 fn cam_b3lyp_gga_vxc_matches_libxc_default() {
     run_gga_oracle_compare("xc_hyb_gga_xc_cam_b3lyp", None);
 }
 
 #[test]
-#[ignore = "deferred until aux metadata generation"]
 fn cam_b3lyp_gga_vxc_matches_libxc_omega_0_5() {
     run_gga_oracle_compare("xc_hyb_gga_xc_cam_b3lyp", Some(0.5));
 }
 
 #[test]
-#[ignore = "deferred until aux metadata generation"]
 fn hse03_gga_vxc_matches_libxc() {
     run_gga_oracle_compare("xc_hyb_gga_xc_hse03", None);
 }
 
 #[test]
-#[ignore = "deferred until aux metadata generation"]
 fn wb97x_gga_vxc_matches_libxc() {
     run_gga_oracle_compare("xc_hyb_gga_xc_wb97x", None);
 }
 
 #[test]
-#[ignore = "deferred until aux metadata generation"]
 fn b94_hyb_mgga_vxc_matches_libxc() {
-    run_mgga_oracle_compare("xc_mgga_c_b94_hyb");
+    run_mgga_oracle_compare("xc_hyb_mgga_xc_b94_hyb");
 }

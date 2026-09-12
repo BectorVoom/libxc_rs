@@ -280,7 +280,7 @@ macro_rules! ten_arm_dispatch_rmgga {
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($vxc_u)::+(
@@ -292,7 +292,8 @@ macro_rules! ten_arm_dispatch_rmgga {
                         c.vtau.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
+                if $zero_tau { if let Some(b) = c.vtau.as_deref_mut() { b.fill(0.0); } }
             }),
             (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($fxc_u)::+(
@@ -314,7 +315,8 @@ macro_rules! ten_arm_dispatch_rmgga {
                         c.v2tau2.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
+                if $zero_tau { if let Some(b) = c.vtau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2rhotau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2sigmatau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2lapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2tau2.as_deref_mut() { b.fill(0.0); } }
             }),
             (DerivativeOrder::Kxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($kxc_u)::+(
@@ -356,7 +358,8 @@ macro_rules! ten_arm_dispatch_rmgga {
                         c.v3tau3.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
+                if $zero_tau { if let Some(b) = c.vtau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2rhotau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2sigmatau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2lapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2tau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rho2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rhosigmatau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rholapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rhotau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3sigma2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3sigmalapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3sigmatau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3lapl2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3lapltau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3tau3.as_deref_mut() { b.fill(0.0); } }
             }),
             (DerivativeOrder::Lxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($lxc_u)::+(
@@ -433,7 +436,8 @@ macro_rules! ten_arm_dispatch_rmgga {
                         c.v4tau4.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
+                if $zero_tau { if let Some(b) = c.vtau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2rhotau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2sigmatau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2lapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2tau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rho2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rhosigmatau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rholapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rhotau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3sigma2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3sigmalapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3sigmatau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3lapl2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3lapltau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3tau3.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rho3tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rho2sigmatau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rho2lapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rho2tau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rhosigma2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rhosigmalapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rhosigmatau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rholapl2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rholapltau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rhotau3.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4sigma3tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4sigma2lapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4sigma2tau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4sigmalapl2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4sigmalapltau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4sigmatau3.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4lapl3tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4lapl2tau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4lapltau3.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4tau4.as_deref_mut() { b.fill(0.0); } }
             }),
             (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($exc_p)::+(
@@ -441,7 +445,7 @@ macro_rules! ten_arm_dispatch_rmgga {
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
             }),
             (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($vxc_p)::+(
@@ -453,7 +457,8 @@ macro_rules! ten_arm_dispatch_rmgga {
                         c.vtau.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
+                if $zero_tau { if let Some(b) = c.vtau.as_deref_mut() { b.fill(0.0); } }
             }),
             (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($fxc_p)::+(
@@ -475,7 +480,8 @@ macro_rules! ten_arm_dispatch_rmgga {
                         c.v2tau2.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
+                if $zero_tau { if let Some(b) = c.vtau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2rhotau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2sigmatau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2lapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2tau2.as_deref_mut() { b.fill(0.0); } }
             }),
             (DerivativeOrder::Kxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($kxc_p)::+(
@@ -517,7 +523,8 @@ macro_rules! ten_arm_dispatch_rmgga {
                         c.v3tau3.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
+                if $zero_tau { if let Some(b) = c.vtau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2rhotau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2sigmatau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2lapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2tau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rho2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rhosigmatau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rholapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rhotau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3sigma2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3sigmalapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3sigmatau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3lapl2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3lapltau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3tau3.as_deref_mut() { b.fill(0.0); } }
             }),
             (DerivativeOrder::Lxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($lxc_p)::+(
@@ -594,7 +601,8 @@ macro_rules! ten_arm_dispatch_rmgga {
                         c.v4tau4.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
-                    )
+                    );
+                if $zero_tau { if let Some(b) = c.vtau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2rhotau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2sigmatau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2lapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v2tau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rho2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rhosigmatau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rholapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3rhotau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3sigma2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3sigmalapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3sigmatau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3lapl2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3lapltau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v3tau3.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rho3tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rho2sigmatau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rho2lapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rho2tau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rhosigma2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rhosigmalapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rhosigmatau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rholapl2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rholapltau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4rhotau3.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4sigma3tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4sigma2lapltau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4sigma2tau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4sigmalapl2tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4sigmalapltau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4sigmatau3.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4lapl3tau.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4lapl2tau2.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4lapltau3.as_deref_mut() { b.fill(0.0); } if let Some(b) = c.v4tau4.as_deref_mut() { b.fill(0.0); } }
             }),
         }
         Ok(())
